@@ -19,7 +19,8 @@ rails runs on rack (check config.ru)
 # Gen cont..
     for more on file structure
     https://learning.flatironschool.com/courses/5932/pages/creating-a-rails-app?module_item_id=426762
-
+    FAKER
+    https://github.com/faker-ruby/faker
 
 Things you may want to cover:
 * Ruby version
