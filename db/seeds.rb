@@ -13,8 +13,8 @@
 # Movie.create(title: "Gorp II: Reloaded", genre: "comedy")
 # Movie.create(title: "Gorp III: The Reckoning", genre: "drama")
 # OR    make an array that conatains hashes-> each hash would represnet each individual instance
-Movie.create([{title: "Gorp", genre: "action"}, {title: "Gorp II: Reloaded", genre: "comedy"}, {title: "Gorp III: The Reckoning", genre: "drama"}])
+Movie.create([{title: "Gorp", genre: "action", rating: 5, would_watch_again: true}])
 # rake db:seed 
 # rake console
 # Movie.all or Movie.all.length to check seed data is there
-Movie.create(title: Faker::Movie.title, genre: "action")
+# Movie.create(title: Faker::Movie.title, genre: "action")
