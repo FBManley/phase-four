@@ -1,11 +1,13 @@
 # README ahhhhhhhhhh
 # Phase Four All Notes
 
-#   Setting up rails app 
+#   Setting up rails app
+    $ bundle install
     $ gem install rails
         localhost:3000/ROUTE
     $ rails new app_name
     $ rails server
+    $ rails db:migrate db:seed
 
 #   Conventions
 file name for app should be all lowercase w/ - (find out how to change)
