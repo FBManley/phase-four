@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
     #  GET /key
     # before_action
-    
+    # $ rails g controller Movies --not-test-framework
     def index
         #  send a response for each request- ie render method 
         # By convention, Rails will look for a view template that matches the name of the controller and action
@@ -12,3 +12,14 @@ class MoviesController < ApplicationController
     end
     # get "/movies"
 end
+# example controller
+# def all_movies 
+#     movies = Movie.order(grade: :desc)
+#     render json: students
+#     # gives array of objects
+# end
+# def highest_rated
+#     movies = Movie.order(grade: :desc).first
+#     render json: student
+#     # gives one object 
+# end

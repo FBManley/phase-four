@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   get 'movies', to: 'movies#index'
   
 end
+# get '/movies/ranked', to: 'movies#all_movies'
+# get '/movies/highest-rated', to: 'movies#highest_rated'
  
