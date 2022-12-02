@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   #  can use custom routes: requires http verb, url, controller#action OR 
   # resource: generate 7 routes 
   # get "/key", to: "key#index"
-  get 'movies', to: 'movies#index'
-  
+  get '/movies', to: 'movies#index'
+  get '/movies/:id', to: 'movies#show'
 end
 # get '/movies/ranked', to: 'movies#all_movies'
 # get '/movies/highest-rated', to: 'movies#highest_rated'
