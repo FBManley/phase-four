@@ -3,4 +3,8 @@ class Movie < ApplicationRecord
     def summary 
         "#{self.title} #{self.genre} #{self.rating} #{self.would_watch_again}"
     end
+    # def index 
+    # end
+    # def show
+    # end
 end

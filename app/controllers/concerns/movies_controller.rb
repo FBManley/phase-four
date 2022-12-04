@@ -7,20 +7,25 @@ class MoviesController < ApplicationController
         # By convention, Rails will look for a view template that matches the name of the controller and action
         # That render method is a powerful bit of code. Keep in mind that as a server, it's always our job to send back a response to every request. When we're developing Rails APIs, using render to send back JSON data will be our goal for almost every request!
         # only: OR except: OR methods: provides custom rendering for whatever keys in data you want
-        movies = Movie.all 
-        render json: movies, only: [:title, :rating]
+        
+        render json: Movie.all, only: [:title, :rating]
     end
     # get "/movies"
     def show
-        # find a cheese by ID from the URL (params[:id] time)
+        # find a cheese by ID from the URL (params[:id] time) find_by returns nil if we find nothing
         movies = Movies.find_by(:id params[:id])
         if movies
-            render json: movies 
+            render json: movies, status: :ok
         else 
-            render json: {error: "Movie not found"}
+            render json: {error: "Movie not found"}, status: :not_found
          # send a JSON response using that cheese object
         end
     end 
+    def create 
+        # how to get inputs for new resource
+        movie = Movie.create(title: params[:title], rating: params[:rating])
+        render json: movie, status: :created
+    end
 end
 # example controller
 # def all_movies 
