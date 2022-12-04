@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
     # get "/movies"
     def show
         # find a cheese by ID from the URL (params[:id] time) find_by returns nil if we find nothing
-        movies = Movies.find_by(:id params[:id])
+        movies = Movies.find_by(id: params[:id])
         if movies
             render json: movies, status: :ok
         else 
