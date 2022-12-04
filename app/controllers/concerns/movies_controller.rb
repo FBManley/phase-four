@@ -1,4 +1,6 @@
 class MoviesController < ApplicationController
+    # disable wrap parameters for this controller-> for ALL controllers at to config/initializers/wrap_parameters.rb
+    wrap_parameters format: [] 
     #  GET /key
     # before_action
     # $ rails g controller Movies --not-test-framework
@@ -23,8 +25,14 @@ class MoviesController < ApplicationController
     end 
     def create 
         # how to get inputs for new resource
-        movie = Movie.create(title: params[:title], rating: params[:rating])
+        # movie = Movie.create(title: params[:title], rating: params[:rating])-> explicitly specifying which attributes we'd like our new movie to be created with, there's no chance of a user updating an attribute other than title or rating.
+        movie = Movie.create(movie_params)
         render json: movie, status: :created
+    end
+
+    private
+    def movie_params
+        params.permit(:title, :rating)
     end
 end
 # example controller
