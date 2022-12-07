@@ -72,6 +72,7 @@ class MoviesController < ApplicationController
 
 
     private
+    # using strong params by spcifying what we're permitting
     def movie_params
         params.permit(:title, :rating)
     end
