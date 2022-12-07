@@ -29,6 +29,27 @@ class MoviesController < ApplicationController
         movie = Movie.create(movie_params)
         render json: movie, status: :created
     end
+    def updated 
+        # find_by gives us nil where .find() doesnt give us anything if nothing found
+        movie = Movie.find_by(id:params[:id])
+        if movie
+            # update
+            movie.update(movie_params)
+            render json: movie, status: :accepted
+        else
+            render json: {error: "Movie not found"}, status: :not_found
+        end
+    end 
+
+    def destroy
+        movie = Movie.find_by(id:parmas[:id])
+        if movie 
+            movie.destroy
+            head :no_content 
+        else 
+            render json: {error: "Movie not found"}, status: :not_found
+        end
+    end
 
     private
     def movie_params
@@ -46,3 +67,16 @@ end
 #     render json: student
 #     # gives one object 
 # end
+
+# custom routes break RESTful conventions. to keep RESTful- create new controller, such as Birds::LikesController, and add an update action in this controller
+# def increment_likes
+#     bird = Bird.find_by(id: params[:id])
+#     if bird
+#       bird.update(likes: bird.likes + 1)
+#       render json: bird
+#     else
+#       render json: { error: "Bird not found" }, status: :not_found
+#     end
+#   end
+# in routes- custom action = custom route patch "/birds/:id/like", to: "birds#increment_likes"
+# whenever I have the inclination that I want to add a method on a controller that’s not part of the default five or whatever REST actions that we have by default, make a new controller! And just call it that.
