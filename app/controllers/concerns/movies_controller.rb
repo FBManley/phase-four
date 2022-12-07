@@ -1,6 +1,8 @@
 class MoviesController < ApplicationController
     # disable wrap parameters for this controller-> for ALL controllers at to config/initializers/wrap_parameters.rb
     wrap_parameters format: [] 
+    # exception handling for whole controller vs explcitly in each method
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     #  GET /key
     # before_action
     # $ rails g controller Movies --not-test-framework
@@ -52,20 +54,32 @@ class MoviesController < ApplicationController
         end
     end 
 
+    # def destroy
+    #     movie = Movie.find_by(id:parmas[:id])
+    #     if movie 
+    #         movie.destroy
+    #         # 204 status code, indicating that the server has successfully fulfilled the request and that there is no content to send in the response
+    #         head :no_content 
+    #     else 
+    #         render json: {error: "Movie not found"}, status: :not_found
+    #     end
+    # end
     def destroy
-        movie = Movie.find_by(id:parmas[:id])
-        if movie 
-            movie.destroy
-            # 204 status code, indicating that the server has successfully fulfilled the request and that there is no content to send in the response
-            head :no_content 
-        else 
-            render json: {error: "Movie not found"}, status: :not_found
-        end
+        movie = find_movie
+        movie.destroy 
+        render json: movie
     end
+
 
     private
     def movie_params
         params.permit(:title, :rating)
+    end
+    def find_movie 
+        Movie.find(params[:id])
+    end
+    def render_not_found_response 
+        render json: { error: "Movie not found" }, status: :not_found
     end
 end
 # example controller
