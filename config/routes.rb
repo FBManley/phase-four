@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # When we GET (method) req to /key path, run the index method in the KeyController (req/resp cycle)
-  # resource: generates all 7 routes, specify as needed
-  resources :movies, only: [:show, :create, :new, :edit, :update, :destroy]
+  # resource: generates all 7 routes, specify as needed if using all then specifcy non , only: [:show, :create, :new, :edit, :update, :destroy]
+  resources :movies
   # routes and symbols
   #  can use custom routes: requires http verb, url, controller#action OR 
   # get "/key", to: "key#index"

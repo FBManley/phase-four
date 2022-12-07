@@ -15,14 +15,25 @@ class MoviesController < ApplicationController
     # get "/movies"
     def show
         # find a cheese by ID from the URL (params[:id] time) find_by returns nil if we find nothing
-        movies = Movies.find_by(id: params[:id])
-        if movies
-            render json: movies, status: :ok
+        movie = Movies.find_by(id: params[:id])
+        if movie
+            render json: movie, status: :ok
         else 
             render json: {error: "Movie not found"}, status: :not_found
          # send a JSON response using that cheese object
         end
     end 
+    # def show 
+    #     movies = Movies.find_by(id: params[:id])
+    #     if movies
+    #         render json: movies, only: [:title, :genre], methods: [:title_director]
+    #               OR  
+    #         render json: movies except: [:rating]
+    #     else 
+    #         render json: {error: "Movie not found"}, status: :not_found
+    #     end
+    # end
+
     def create 
         # how to get inputs for new resource
         # movie = Movie.create(title: params[:title], rating: params[:rating])-> explicitly specifying which attributes we'd like our new movie to be created with, there's no chance of a user updating an attribute other than title or rating.
@@ -45,6 +56,7 @@ class MoviesController < ApplicationController
         movie = Movie.find_by(id:parmas[:id])
         if movie 
             movie.destroy
+            # 204 status code, indicating that the server has successfully fulfilled the request and that there is no content to send in the response
             head :no_content 
         else 
             render json: {error: "Movie not found"}, status: :not_found
