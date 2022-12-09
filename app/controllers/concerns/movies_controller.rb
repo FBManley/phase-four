@@ -1,8 +1,11 @@
 class MoviesController < ApplicationController
     # disable wrap parameters for this controller-> for ALL controllers at to config/initializers/wrap_parameters.rb
     wrap_parameters format: [] 
-    # exception handling for whole controller vs explcitly in each method
-    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+    # exception handling for whole controller vs explcitly in each method ?? may or may not need to be used at the top of the class- casued lab failure controller-validations-lab
+    # handles all ActiveRecord::RecordInvalid exceptions in the whole controller with rescue_from method
+    # rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+    # resuce_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
+
     #  GET /key
     # before_action
     # $ rails g controller Movies --not-test-framework
@@ -39,19 +42,20 @@ class MoviesController < ApplicationController
     def create 
         # how to get inputs for new resource
         # movie = Movie.create(title: params[:title], rating: params[:rating])-> explicitly specifying which attributes we'd like our new movie to be created with, there's no chance of a user updating an attribute other than title or rating.
-        movie = Movie.create(movie_params)
-        render json: movie, status: :created
+        movie = Movie.create!(movie_params)\
+        render json: movie, status: :created 
+    rescue ActiveRecord::RecordInvalid => invalid
+        render json: {error: movie.errors.full_messages}, status: :unprocessable_entity 
     end
+
     def updated 
         # find_by gives us nil where .find() doesnt give us anything if nothing found
-        movie = Movie.find_by(id:params[:id])
-        if movie
-            # update
-            movie.update(movie_params)
-            render json: movie, status: :accepted
-        else
-            render json: {error: "Movie not found"}, status: :not_found
-        end
+        movie = find_movie 
+        # update
+        movie.update!(movie_params)
+        render json: movie, status: :accepted
+    rescue ActiveRecord::RecordInvalid => invalid
+        render json: {error: invalid.record.errors }, status: :unprocessable_entity
     end 
 
     # def destroy
@@ -67,6 +71,7 @@ class MoviesController < ApplicationController
     def destroy
         movie = find_movie
         movie.destroy 
+        head :no_content 
         render json: movie
     end
 
@@ -81,6 +86,9 @@ class MoviesController < ApplicationController
     end
     def render_not_found_response 
         render json: { error: "Movie not found" }, status: :not_found
+    end
+    def render_unprocessable_entity(invalid)
+        render json:{error: invalid.record.errors}, status: :unprocessable_entity
     end
 end
 # example controller
