@@ -1,4 +1,5 @@
-# README ahhhhhhhhhh
+# README 
+  set up ERD for data
 # Phase Four All Notes
 
 #   Setting up rails app
@@ -8,7 +9,10 @@
     $ rails new app_name
     $ rails server
     $ rails db:migrate db:seed
-
+  Commands: 
+    $ rails g resource CastMember name role production:belongs_to --no-test-framework
+    <!-- potential change to site I would actaully use- workout app -->
+    $ rails g resource SessionController
 #   Conventions
 file name for app should be all lowercase w/ - (find out how to change)
 

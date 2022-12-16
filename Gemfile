@@ -45,6 +45,8 @@ gem 'active_model_serializers'
 gem 'faker'
 # gem install faker
 
+# Use Active Model has_secure_password #hashes and salts password
+gem 'bcrypt', '~>3.1.18' 
 # must be inherited 
 # Use Sass to process CSS
 # gem "sassc-rails"

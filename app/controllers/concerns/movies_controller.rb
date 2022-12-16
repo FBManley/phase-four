@@ -5,6 +5,7 @@ class MoviesController < ApplicationController
     # handles all ActiveRecord::RecordInvalid exceptions in the whole controller with rescue_from method
     # rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     # resuce_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
+    
 
     #  GET /key
     # before_action
@@ -22,6 +23,7 @@ class MoviesController < ApplicationController
         # find a cheese by ID from the URL (params[:id] time) find_by returns nil if we find nothing
         movie = Movies.find_by(id: params[:id])
         if movie
+            # movie, indclude: :viewers  / whatever other model we want to include
             render json: movie, status: :ok
         else 
             render json: {error: "Movie not found"}, status: :not_found
